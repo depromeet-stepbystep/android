@@ -2,8 +2,10 @@ package com.depromeet.stepbystep.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
@@ -13,10 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.depromeet.stepbystep.R;
 import com.depromeet.stepbystep.adapter.CalendarAdapter;
 import com.depromeet.stepbystep.common.Define;
+import com.depromeet.stepbystep.fragment.TodoFragment;
 
 public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
@@ -66,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
                         vpCalendar.setCurrentItem(Define.CALENDAR_PAGE_MIDDLE, false);
                         adCalender.notifyDataSetChanged();
                 }
-
             }
         });
 
@@ -75,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, 0, 0);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        // 투두 Fragment
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        TodoFragment fragmentTodo = new TodoFragment();
+        fragmentTransaction.add(R.id.nav_view, fragmentTodo);
+        fragmentTransaction.commit();
     }
 
     @Override
