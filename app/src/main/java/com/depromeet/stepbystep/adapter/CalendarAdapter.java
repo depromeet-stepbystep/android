@@ -19,6 +19,7 @@ public class CalendarAdapter extends FragmentPagerAdapter {
         fragments = new CalendarFragment[Define.CALENDAR_PAGE_SIZE];
     }
 
+
     // 최초 로드시 프래그먼트 생성
     @Override
     public Fragment getItem(int position) {
