@@ -41,7 +41,6 @@ public class CalendarFragment extends Fragment {
         tvPage = (TextView) rootView.findViewById(R.id.tvPage);
         gridView = (GridView) rootView.findViewById(R.id.gridview);
 
-
         /**
          오늘의 날짜를 세팅 해준다.
          **/
