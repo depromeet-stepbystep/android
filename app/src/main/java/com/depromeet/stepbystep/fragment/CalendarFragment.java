@@ -13,13 +13,9 @@ import android.widget.TextView;
 
 import com.depromeet.stepbystep.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
 
 
 public class CalendarFragment extends Fragment {
@@ -30,7 +26,7 @@ public class CalendarFragment extends Fragment {
     private GridView gridView;          //그리드뷰
     private Calendar mCal;              //캘린더 변수
 
-    int month;
+    int month, year;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,23 +38,9 @@ public class CalendarFragment extends Fragment {
         gridView = (GridView) rootView.findViewById(R.id.gridview);
 
         /**
-         오늘의 날짜를 세팅 해준다.
-         **/
-        long now = System.currentTimeMillis();
-        final Date date = new Date(now);
-
-        /**
-         연,월,일을 따로 저장
-         **/
-        final SimpleDateFormat curYearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
-        final SimpleDateFormat curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
-        final SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
-
-
-        /**
          현재 날짜 텍스트뷰에 뿌려줌
          **/
-        tvPage.setText(curMonthFormat.format(date) + "월");
+        tvPage.setText(year+"년 " + month + "월");
 
         /**
          gridview 요일 표시
@@ -78,7 +60,7 @@ public class CalendarFragment extends Fragment {
         /**
          이번달 1일 무슨요일인지 판단 mCal.set(Year,Month,Day)
          **/
-        mCal.set(Integer.parseInt(curYearFormat.format(date)), Integer.parseInt(curMonthFormat.format(date)) - 1, 1);
+        mCal.set(year, month - 1, 1);
         int dayNum = mCal.get(Calendar.DAY_OF_WEEK);
 
 
@@ -87,15 +69,13 @@ public class CalendarFragment extends Fragment {
         }
 
 
-        setCalendarDate(mCal.get(Calendar.MONTH) + 1);
+        setCalendarDate(month);
         gridAdapter = new GridAdapter(getActivity(), dayList);
         gridView.setAdapter(gridAdapter);
 
         return rootView;
 
     }
-
-
 
 
 
@@ -166,18 +146,20 @@ public class CalendarFragment extends Fragment {
             holder.tvItemGridView.setText("" + getItem(position));
 
 
-
             //해당 날짜 텍스트 컬러,배경 변경
             mCal = Calendar.getInstance();
 
             //오늘 day 가져옴
-            Integer today = mCal.get(Calendar.DAY_OF_MONTH);
-            String sToday = String.valueOf(today);
 
-            if (sToday.equals(getItem(position))) { //오늘 day 텍스트 컬러 변경
-                holder.tvItemGridView.setTextColor(getResources().getColor(R.color.today));
+            if(month == mCal.get(Calendar.MONTH)+1 && year == mCal.get(Calendar.YEAR)){
+                Integer today = mCal.get(Calendar.DAY_OF_MONTH);
+                String sToday = String.valueOf(today);
+
+
+                if (sToday.equals(getItem(position))) { //오늘 day 텍스트 컬러 변경
+                    holder.tvItemGridView.setTextColor(getResources().getColor(R.color.today));
+                }
             }
-
             return convertView;
         }
 
@@ -188,8 +170,9 @@ public class CalendarFragment extends Fragment {
     }
 
 
-    public void setMonth(int month) {
-                this.month = month;
+    public void setDate(int[] date) {
+        this.year=date[0];
+        this.month=date[1];
     }
 }
 
