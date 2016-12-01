@@ -111,8 +111,6 @@ public class CalendarFragment extends Fragment {
         }
     }
 
-
-
     /**
      그리드 뷰 어댑터
     **/
