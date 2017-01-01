@@ -7,5 +7,6 @@ public interface Define {
     int CALENDAR_PAGE_SIZE = 3;
     int CALENDAR_PAGE_MIDDLE = CALENDAR_PAGE_SIZE / 2;
 
-    String ARG_MONTH = "month";
+    int KEY_YEAR = 0;
+    int KEY_MONTH = 1;
 }

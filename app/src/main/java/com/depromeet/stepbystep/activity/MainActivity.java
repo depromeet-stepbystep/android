@@ -2,7 +2,6 @@ package com.depromeet.stepbystep.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.depromeet.stepbystep.R;
 import com.depromeet.stepbystep.adapter.CalendarAdapter;
@@ -53,20 +51,23 @@ public class MainActivity extends AppCompatActivity {
         vpCalendar.setCurrentItem(Define.CALENDAR_PAGE_MIDDLE, false);
         vpCalendar.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageSelected(int position) {
+
             }
 
             @Override
-            public void onPageSelected(int position) {
-                if (position < Define.CALENDAR_PAGE_MIDDLE) adCalender.skipMonth(-1);
-                if (position > Define.CALENDAR_PAGE_MIDDLE) adCalender.skipMonth(+1);
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
                 switch (state) {
                     case ViewPager.SCROLL_STATE_IDLE:
-                    case ViewPager.SCROLL_STATE_DRAGGING:
+                        int position = vpCalendar.getCurrentItem();
+                        if (position < Define.CALENDAR_PAGE_MIDDLE) adCalender.skipMonth(-1);
+                        if (position > Define.CALENDAR_PAGE_MIDDLE) adCalender.skipMonth(+1);
+
                         vpCalendar.setCurrentItem(Define.CALENDAR_PAGE_MIDDLE, false);
                         adCalender.notifyDataSetChanged();
                 }

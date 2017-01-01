@@ -8,10 +8,9 @@
 
     <TextView
         android:gravity="center_horizontal"
-        android:id="@+id/tv_item_gridview"
+        android:id="@+id/tv_item_day"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 
 </LinearLayout>
