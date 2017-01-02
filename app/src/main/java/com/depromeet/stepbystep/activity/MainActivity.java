@@ -69,9 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         int position = vpCalendar.getCurrentItem();
                         if (position < CALENDAR_PAGE_MIDDLE) adCalender.skipMonth(-1);
                         if (position > CALENDAR_PAGE_MIDDLE) adCalender.skipMonth(+1);
-
                         vpCalendar.setCurrentItem(CALENDAR_PAGE_MIDDLE, false);
-                        adCalender.notifyDataSetChanged();
                 }
             }
         });
