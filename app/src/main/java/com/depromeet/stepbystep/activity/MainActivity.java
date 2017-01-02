@@ -20,6 +20,8 @@ import com.depromeet.stepbystep.adapter.CalendarAdapter;
 import com.depromeet.stepbystep.common.Define;
 import com.depromeet.stepbystep.fragment.TodoFragment;
 
+import static com.depromeet.stepbystep.common.Define.CALENDAR_PAGE_MIDDLE;
+
 public class MainActivity extends AppCompatActivity {
     FragmentManager fragmentManager;
 
@@ -47,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager vpCalendar = (ViewPager) findViewById(R.id.vpCalendar);
         final CalendarAdapter adCalender = new CalendarAdapter(fragmentManager);
         vpCalendar.setAdapter(adCalender);
-        vpCalendar.setOffscreenPageLimit(Define.CALENDAR_PAGE_MIDDLE);
-        vpCalendar.setCurrentItem(Define.CALENDAR_PAGE_MIDDLE, false);
+        vpCalendar.setOffscreenPageLimit(CALENDAR_PAGE_MIDDLE);
+        vpCalendar.setCurrentItem(CALENDAR_PAGE_MIDDLE, false);
         vpCalendar.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -65,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
                 switch (state) {
                     case ViewPager.SCROLL_STATE_IDLE:
                         int position = vpCalendar.getCurrentItem();
-                        if (position < Define.CALENDAR_PAGE_MIDDLE) adCalender.skipMonth(-1);
-                        if (position > Define.CALENDAR_PAGE_MIDDLE) adCalender.skipMonth(+1);
+                        if (position < CALENDAR_PAGE_MIDDLE) adCalender.skipMonth(-1);
+                        if (position > CALENDAR_PAGE_MIDDLE) adCalender.skipMonth(+1);
 
-                        vpCalendar.setCurrentItem(Define.CALENDAR_PAGE_MIDDLE, false);
+                        vpCalendar.setCurrentItem(CALENDAR_PAGE_MIDDLE, false);
                         adCalender.notifyDataSetChanged();
                 }
             }

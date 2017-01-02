@@ -1,25 +1,30 @@
 package com.depromeet.stepbystep.adapter;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.util.SparseArrayCompat;
+import android.util.SparseArray;
 
-import com.depromeet.stepbystep.common.Define;
 import com.depromeet.stepbystep.fragment.CalendarFragment;
 
 import java.util.Calendar;
+import java.util.HashMap;
+
+import static com.depromeet.stepbystep.common.Define.CALENDAR_PAGE_MIDDLE;
+import static com.depromeet.stepbystep.common.Define.CALENDAR_PAGE_SIZE;
+import static com.depromeet.stepbystep.common.Define.KEY_MONTH;
+import static com.depromeet.stepbystep.common.Define.KEY_YEAR;
 
 public class CalendarAdapter extends FragmentPagerAdapter {
-    private SparseArrayCompat<CalendarFragment> fragments = new SparseArrayCompat<>();
-
+    private SparseArray<CalendarFragment> fragments;
     private int thisYear;
     private int thisMonth;
 
     public CalendarAdapter(FragmentManager fm) {
         super(fm);
-        Calendar calendar = Calendar.getInstance();
-        thisYear = calendar.get(Calendar.YEAR);
-        thisMonth = calendar.get(Calendar.MONTH) + 1;
+        fragments = new SparseArray<>();
+        thisYear = Calendar.getInstance().get(Calendar.YEAR);
+        thisMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
     }
 
     /**
@@ -27,15 +32,7 @@ public class CalendarAdapter extends FragmentPagerAdapter {
      */
     @Override
     public int getCount() {
-        return Define.CALENDAR_PAGE_SIZE;
-    }
-
-    /**
-     * 페이지 이동시 프래그먼트의 모든 뷰를 갱신하기 위함
-     */
-    @Override
-    public int getItemPosition(Object object) {
-        return POSITION_NONE;
+        return CALENDAR_PAGE_SIZE;
     }
 
     /**
@@ -45,10 +42,18 @@ public class CalendarAdapter extends FragmentPagerAdapter {
     public CalendarFragment getItem(int position) {
         CalendarFragment fragment = fragments.get(position);
         if (fragment == null) {
+            HashMap<String, Integer> date = fetchDate(position);
+            int year = date.get(KEY_YEAR);
+            int month = date.get(KEY_MONTH);
+
+            Bundle args = new Bundle();
+            args.putInt(KEY_YEAR, year);
+            args.putInt(KEY_MONTH, month);
+
             fragment = new CalendarFragment();
+            fragment.setArguments(args);
             fragments.put(position, fragment);
         }
-        fragment.setDate(fetchDate(position));
         return fragment;
     }
 
@@ -60,7 +65,10 @@ public class CalendarAdapter extends FragmentPagerAdapter {
 
         // 프래그먼트 갱신
         for (int position = 0; position < getCount(); position ++) {
-            getItem(position);
+            HashMap<String, Integer> date = fetchDate(position);
+            int year = date.get(KEY_YEAR);
+            int month = date.get(KEY_MONTH);
+            getItem(position).initDate(year, month);
         }
     }
 
@@ -68,9 +76,9 @@ public class CalendarAdapter extends FragmentPagerAdapter {
      * {position}에 해당하는 페이지의 날짜 반환
      * @param position 0:전월, 1:금월, 2:익월
      */
-    private SparseArrayCompat<Integer> fetchDate(int position) {
+    private HashMap<String, Integer> fetchDate(int position) {
         int initYear = thisYear;
-        int initMonth = thisMonth + position - Define.CALENDAR_PAGE_MIDDLE;
+        int initMonth = thisMonth + position - CALENDAR_PAGE_MIDDLE;
 
         while (initMonth > 12) {
             initYear += 1;
@@ -81,9 +89,9 @@ public class CalendarAdapter extends FragmentPagerAdapter {
             initMonth += 12;
         }
 
-        SparseArrayCompat<Integer> initDate = new SparseArrayCompat<>();
-        initDate.put(Define.KEY_YEAR, initYear);
-        initDate.put(Define.KEY_MONTH, initMonth);
+        HashMap<String, Integer> initDate = new HashMap<>();
+        initDate.put(KEY_YEAR, initYear);
+        initDate.put(KEY_MONTH, initMonth);
         return initDate;
     }
 }
