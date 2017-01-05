@@ -8,14 +8,14 @@
     android:background="@color/background">
 
     <TextView
-        android:id="@+id/tvDate"
+        android:id="@+id/fragment_calendar_tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/app_margin"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <GridView
-        android:id="@+id/gvDate"
+        android:id="@+id/fragment_calendar_gv_date"
         android:layout_weight="1"
         android:layout_height="0dp"
         android:layout_width="match_parent"

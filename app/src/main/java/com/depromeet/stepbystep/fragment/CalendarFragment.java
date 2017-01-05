@@ -35,8 +35,8 @@ public class CalendarFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        tvDate = (TextView) rootView.findViewById(R.id.tvDate);
-        gvDate = (GridView) rootView.findViewById(R.id.gvDate);
+        tvDate = (TextView) rootView.findViewById(R.id.fragment_calendar_tv_date);
+        gvDate = (GridView) rootView.findViewById(R.id.fragment_calendar_gv_date);
         gvDate.setAdapter(adDate);
 
         currYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -79,7 +79,7 @@ public class CalendarFragment extends Fragment {
                 convertView = inflater.inflate(R.layout.fragment_calendar_item, parent, false);
 
                 holder = new ViewHolder();
-                holder.tvDay = (TextView) convertView.findViewById(R.id.tv_item_day);
+                holder.tvDay = (TextView) convertView.findViewById(R.id.fragment_calendar_item_tv_day);
 
                 convertView.setTag(holder);
             } else {

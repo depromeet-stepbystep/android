@@ -1,7 +1,6 @@
 package com.depromeet.stepbystep.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -32,21 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         // 초기화
         fragmentManager = getSupportFragmentManager();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         setSupportActionBar(toolbar);
 
-        // 플로팅(+) 버튼
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         // 캘린더 ViewPager
-        final ViewPager vpCalendar = (ViewPager) findViewById(R.id.vpCalendar);
+        final ViewPager vpCalendar = (ViewPager) findViewById(R.id.activity_main_vp_calendar);
         final CalendarAdapter adCalender = new CalendarAdapter(fragmentManager);
         vpCalendar.setAdapter(adCalender);
         vpCalendar.setOffscreenPageLimit(CALENDAR_PAGE_MIDDLE);
@@ -83,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         // 투두 Fragment
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         TodoFragment fragmentTodo = new TodoFragment();
-        fragmentTransaction.add(R.id.nav_view, fragmentTodo);
+        fragmentTransaction.add(R.id.activity_main_nav_view, fragmentTodo);
         fragmentTransaction.commit();
     }
 

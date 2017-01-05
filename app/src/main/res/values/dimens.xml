@@ -1,3 +1,9 @@
 <resources>
     <dimen name="app_margin">16dp</dimen>
+    <dimen name="app_margin_double">32dp</dimen>
+    <dimen name="app_margin_triple">48dp</dimen>
+    <dimen name="app_margin_quadra">64dp</dimen>
+    <dimen name="app_margin_hexa">96dp</dimen>
+    <dimen name="app_margin_octa">128dp</dimen>
+    <dimen name="app_margin_half">8dp</dimen>
 </resources>
